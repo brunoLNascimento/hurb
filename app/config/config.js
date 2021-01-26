@@ -12,7 +12,8 @@ const config = {
 
     awesomeApi: {
         url: "https://economia.awesomeapi.com.br",
-        timeout: 3000
+        timeout: 3000,
+        retorno: 1
     }
 };
 

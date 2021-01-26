@@ -1,7 +1,11 @@
+const mongoose = require('mongoose');
+mongoose.set('debug', true)
+
+
 module.exports = {
     
-    async save() {
-        saveQuotation.save(function(err, saved){
+    async saveQuotation(quotation) {
+        quotation.save(function(err, saved){
             if(err){
                 throw "Erro ao salvar cotação solicitada" + err;
             }else{
