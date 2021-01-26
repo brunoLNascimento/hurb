@@ -1,0 +1,26 @@
+{
+  "name": "hurb",
+  "version": "1.0.0",
+  "description": "desafio hurb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoLNascimento/hurb.git"
+  },
+  "author": "bruno lima do nascimento",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunoLNascimento/hurb/issues"
+  },
+  "homepage": "https://github.com/brunoLNascimento/hurb#readme",
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "consign": "^0.1.6",
+    "express": "^4.17.1",
+    "express-load": "^1.1.16",
+    "express-mongo-db": "^2.0.4"
+  }
+}
