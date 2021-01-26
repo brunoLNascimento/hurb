@@ -3,9 +3,7 @@ const config = {
         url: 'mongodb://localhost:27017/desafioHurb',
         urlTeste: 'mongodb://localhost:27017/desafioHurbTest',
         options: {
-            db: {native_parser: true},
             server: {
-                poolSize: 5,
                 socketOptions: {keepAlive: 1},
                 auto_reconnect: true
             }
@@ -13,7 +11,8 @@ const config = {
     },
 
     awesomeApi: {
-        url: "https://economia.awesomeapi.com.br"
+        url: "https://economia.awesomeapi.com.br",
+        timeout: 3000
     }
 };
 

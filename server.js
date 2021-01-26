@@ -15,8 +15,7 @@ server.use(function(req, res, next) {
     next();
 });
 
-consign().include('app/model').then('app/controllers').then('app/routes').then('app/config').into(server);
-
+consign().include('app/models').then('app/controllers').then('app/routes').then('app/config').into(server);
 server.listen(port, function(){
     console.log(`Servidor rodando na porta: ${port}.`)
 })
@@ -46,6 +45,6 @@ db.on('disconnected', function() {
     console.log('MongoDB desconectado!');
 });
 
-mongoose.connect(config.db.url, config.db.options);
+mongoose.connect(config.db.url,  { useNewUrlParser: true, useUnifiedTopology: true });
 
 module.exports = server

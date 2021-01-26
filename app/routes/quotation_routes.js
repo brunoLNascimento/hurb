@@ -6,9 +6,9 @@ module.exports = function(server) {
     server.get('/quotation/:coinFrom/:coinTo?/:amount?', quotation.quotation)
     
     //getQuotation, rota para consultar cotação com paginação
-    server.get('/findQuotation/:page/:id?', quotation.getQuotation)
+    //server.get('/findQuotation/:page/:id?', quotation.getQuotation)
 
     //remove, rota para exclusão lógica
-    server.delete('/removeQuotation/:id', quotation.remove)
+    //server.delete('/removeQuotation/:id', quotation.remove)
     
 }

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+    Schema = mongoose.Schema;
 
 const quotation = new Schema({
     varBid: { type: Number },
@@ -16,8 +16,6 @@ const quotation = new Schema({
     message: { type: String },
     valueQuotation: { type: Number },
     active: { type: Boolean, default: true}
-},{
-    collection: quotation
 })
 
 quotation.set('toJSON', {
