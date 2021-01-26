@@ -21,6 +21,9 @@
     "consign": "^0.1.6",
     "express": "^4.17.1",
     "express-load": "^1.1.16",
-    "express-mongo-db": "^2.0.4"
+    "express-mongo-db": "^2.0.4",
+    "mongo": "^0.1.0",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.13"
   }
 }
