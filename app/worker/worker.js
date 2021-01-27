@@ -13,7 +13,7 @@ function schedule(){
           let url = awesomeApi.urlAllQuoatation;
           let foundAll = await apiService(url);
           let built = buildModel(foundAll);
-          await saveAllQuotation(built)
+          saveAllQuotation(built)
       } catch (error) {
           console.log("Erro no worker " +error)
       }

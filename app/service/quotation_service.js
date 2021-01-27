@@ -3,6 +3,7 @@ const Quotation = mongoose.model('Quotation');
 const { awesomeApi } = require("../config/config");
 const { apiService } = require("../service/awesomeApi_service");
 const { saveQuotation } = require("../repository/quotation_repository");
+const moment = require("moment");
 
 module.exports = {
     async findQuotation(params){
@@ -44,7 +45,8 @@ function buildModel(params, foundQuotation){
         timestamp: quotation.timestamp,
         create_date: quotation.create_date,
         message: quotation.message,
-        valueQuotation: quotation.valueQuotation
+        valueQuotation: quotation.valueQuotation,
+        creatAt: moment().format("YYYY-MM-DD HH:mm:ss")
     })
     return saveQuotation
 }

@@ -15,6 +15,7 @@ const quotation = new Schema({
     create_date: { type: Date },
     message: { type: String },
     valueQuotation: { type: Number },
+    creatAt: { type: String },
     active: { type: Boolean, default: true}
 })
 
