@@ -12,6 +12,7 @@ const config = {
 
     awesomeApi: {
         url: "https://economia.awesomeapi.com.br",
+        urlAllQuoatation: "http://economia.awesomeapi.com.br/json/all",
         timeout: 3000,
         retorno: 1
     }
