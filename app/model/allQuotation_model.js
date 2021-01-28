@@ -2,7 +2,7 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 const allQuotation = new Schema({ 
-    code: [],
+    code: {},
     creatAt: { type: String }
     }
 )

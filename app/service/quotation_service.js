@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Quotation = mongoose.model('Quotation');
 const { awesomeApi } = require("../config/config");
 const { apiService } = require("../service/awesomeApi_service");
-const { saveQuotation } = require("../repository/quotation_repository");
+const { saveQuotation, findDbQuotation } = require("../repository/quotation_repository");
 const moment = require("moment");
 
 module.exports = {
@@ -14,23 +14,43 @@ module.exports = {
                 throw "Moeda a ser convertida é um campo obrigatório";
             if(!params.amount) 
                 throw "Valor a ser convertido é um campo obrigatório";
+            
+            let foundDB = await findQuotationDB(params);
+            if(!foundDB){
+                let url = `${awesomeApi.url}/${params.coinFrom}-${params.coinTo}/${awesomeApi.retorno}`;
+                foundDB = await apiService(url);
+            }
 
-            let url = `${awesomeApi.url}/${params.coinFrom}-${params.coinTo}/${awesomeApi.retorno}`;
-            let foundQuotation = await apiService(url);
-            let built = buildModel(params, foundQuotation);
+            let built = buildModel(params, foundDB);
             saveQuotation(built);
-            return foundQuotation;
+            return foundDB;
         } catch (error) {
             throw error;
         }
     }
 }
+async function findQuotationDB(params){
+    try {
+        let getDate = moment().add(-1, 'hour').format("YYYY-MM-DD HH:mm:ss");
+        let foundDB = await findDbQuotation();
+        //Caso a hora atual, depreciada 1 hora, seja menor que a data da última consulta, seguir processo para pegar os dados da base
+        if(getDate <= foundDB.creatAt){
+            for (let key of Object.keys(foundDB.code)) {
+                if(key == params.coinFrom){
+                   return (foundDB.code[key])
+                }
+            }
+        }else{
+            return;
+        }
+    } catch (error) {
+        console.log("Erro ao consultar na base a cotação!")
+    }
+}
 
-function buildModel(params, foundQuotation){
-    let quotation = foundQuotation[0]
+function buildModel(params, quotation){
     quotation.valueQuotation = parseFloat(quotation.high * params.amount).toFixed(2);
     quotation.message = `{Valor a ser cotado $ ${params.amount}, resultado da conversão: ${params.coinFrom} para ${params.coinTo} = ${quotation.valueQuotation}`;
-    
 
     let saveQuotation = new Quotation({
         varBid: quotation.varBid,

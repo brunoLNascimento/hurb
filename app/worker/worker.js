@@ -22,7 +22,7 @@ function schedule(){
 
 function buildModel(foundAll){
     let saveQuotation = new AllQuotation({
-        code: [foundAll],
+        code: foundAll,
         creatAt: moment().format("YYYY-MM-DD HH:mm:ss")
     })
     

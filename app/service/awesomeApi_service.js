@@ -6,7 +6,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             axios.get(url, { timeout: awesomeApi.timeout }
                 ).then( response => {
-                    resolve(response.data);
+                    resolve(response.data[0]);
                 }).catch(error => {
                     reject(error);
                 })
