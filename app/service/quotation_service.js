@@ -17,6 +17,7 @@ module.exports = {
             if(!params.amount) 
                 throw "Valor a ser convertido é um campo obrigatório";
             
+            checkCoin(params.coinFrom);
             let foundDB = await findQuotationDB(params);
             if(!foundDB){
                 let url = `${awesomeApi.url}/${params.coinFrom}-${params.coinTo}/${awesomeApi.retorno}`;
