@@ -4,6 +4,8 @@ const { awesomeApi, limit } = require("../config/config");
 const { apiService } = require("../service/awesomeApi_service");
 const { saveQuotation, findDbQuotation, findQuotationBy } = require("../repository/quotation_repository");
 const moment = require("moment");
+const { coinFrom } = require('../helper/helper');
+const coinsFrom = require('../helper/helper');
 
 module.exports = {
     async findQuotation(params){
@@ -40,6 +42,7 @@ module.exports = {
             if(params.id) {
                 query = { active: true, quotationId : params.id };
             } else if(params.code) {
+                checkCoin(params.code)
                 query = { active: true, code: params.code };
             } else {
                 query = { active: true }
@@ -93,4 +96,13 @@ function buildModel(params, quotation){
         creatAt: moment().format("YYYY-MM-DD HH:mm:ss")
     })
     return saveQuotation
+}
+
+function checkCoin(code){
+    try {
+        let find = coinsFrom.find(el => el == code)
+        if(!find) throw "Verifique a moeda coinFrom: " + coinsFrom
+    } catch (error) {
+        throw error
+    }
 }

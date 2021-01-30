@@ -45,6 +45,6 @@ db.on('disconnected', function() {
     console.log('MongoDB desconectado!');
 });
 
-mongoose.connect(config.db.url,  { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.db.url,  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 module.exports = server
