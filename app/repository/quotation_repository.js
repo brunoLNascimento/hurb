@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Quotation = mongoose.model('Quotation');
 const AllQuotation = mongoose.model('AllQuotation');
+const { limit } = require('../config/config');
 mongoose.set('debug', true)
 
 
@@ -21,6 +22,13 @@ module.exports = {
             if(err) return "Erro ao consultar findDbQuotation: " + err;
             else return res;
         }).sort({'creatAt': -1}).limit(1).skip(0);
+    },
+
+    async findQuotationBy(query, skip){
+        return await Quotation.find(query, function(err, res){
+            if(err) return "Erro ao consultar findQuotationBy: " + err;
+            else return res;
+        }).sort({'creatAt': -1}).limit(limit).skip(skip);
     },
 
     async saveAllQuotation(allQuotation) {

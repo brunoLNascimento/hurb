@@ -15,7 +15,9 @@ const config = {
         urlAllQuoatation: "http://economia.awesomeapi.com.br/json/all",
         timeout: 3000,
         retorno: 1
-    }
+    },
+
+    limit: 10
 };
 
 module.exports = config

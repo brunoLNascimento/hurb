@@ -20,6 +20,12 @@ const quotation = new Schema({
 })
 
 quotation.set('toJSON', {
+    transform: function(doc, ret){
+        delete ret._id,
+        delete ret.id,
+        delete ret.__v,
+        delete ret.active
+    },
     getters: true,
     virtuals: true
 })

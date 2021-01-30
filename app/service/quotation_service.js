@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Quotation = mongoose.model('Quotation');
-const { awesomeApi } = require("../config/config");
+const { awesomeApi, limit } = require("../config/config");
 const { apiService } = require("../service/awesomeApi_service");
-const { saveQuotation, findDbQuotation } = require("../repository/quotation_repository");
+const { saveQuotation, findDbQuotation, findQuotationBy } = require("../repository/quotation_repository");
 const moment = require("moment");
 
 module.exports = {
@@ -27,8 +27,31 @@ module.exports = {
         } catch (error) {
             throw error;
         }
+    },
+
+    async quotation(params){
+        try{
+            if(isNaN(params.page)) throw "Página deve ser númerico"
+            
+            let query = { };
+            let skip = params.page * limit;            
+
+            if(params.id) {
+                query = { active: true, idQuotation : params.id };
+            } else if(params.code) {
+                query = { active: true, code: params.code };
+            } else {
+                query = { active: true }
+            } 
+
+            let foundDB = await findQuotationBy(query, skip);
+            return foundDB;
+        } catch (error) {
+            throw error;
+        }
     }
 }
+
 async function findQuotationDB(params){
     try {
         let getDate = moment().add(-1, 'hour').format("YYYY-MM-DD HH:mm:ss");
