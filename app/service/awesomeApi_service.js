@@ -8,7 +8,12 @@ module.exports = {
                 ).then( response => {
                     resolve(response.data[0]);
                 }).catch(error => {
-                    reject(error);
+                    let err = "Erro na conversão dos valores na apiAwesome: ";
+                    if(error.response.status == 404)
+                        reject( err + error.response.data.message);
+                    else{
+                        reject( err + error.response.data.message || error.message);
+                    }
                 })
             })
         }

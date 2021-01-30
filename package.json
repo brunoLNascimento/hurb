@@ -27,6 +27,7 @@
     "mongo": "^0.1.0",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.13",
+    "mongoose-sequence": "^5.3.1",
     "node-cron": "^2.0.3"
   }
 }

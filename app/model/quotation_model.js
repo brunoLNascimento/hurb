@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    autoincrement = require('mongoose-sequence')(mongoose);
 
 const quotation = new Schema({
     varBid: { type: Number },
@@ -19,7 +20,7 @@ const quotation = new Schema({
     active: { type: Boolean, default: true}
 })
 
-quotation.set('toJSON', {
+quotation.plugin(autoincrement, {inc_field: 'quotationId'}).set('toJSON', {
     transform: function(doc, ret){
         delete ret._id,
         delete ret.id,

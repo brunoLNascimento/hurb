@@ -17,8 +17,10 @@ module.exports = {
             let params = {
                 id: req.params.id,
                 page: parseInt( req.query.page ? req.query.page : 0 ),
-                code: req.query.code.toUpperCase()
             };
+
+            if(req.query.code)
+                params.code = req.query.code.toUpperCase();
                 
             let found = await quotation(params);
             return res.status(200).send(found);

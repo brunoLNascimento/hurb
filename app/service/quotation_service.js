@@ -32,12 +32,13 @@ module.exports = {
     async quotation(params){
         try{
             if(isNaN(params.page)) throw "Página deve ser númerico"
+            if(params.id && params.code) throw "Favor escolha sua busca por ID ou CODE"
             
             let query = { };
             let skip = params.page * limit;            
 
             if(params.id) {
-                query = { active: true, idQuotation : params.id };
+                query = { active: true, quotationId : params.id };
             } else if(params.code) {
                 query = { active: true, code: params.code };
             } else {
