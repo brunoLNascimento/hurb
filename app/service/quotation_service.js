@@ -9,6 +9,13 @@ const coinsFrom = require('../helper/helper');
 module.exports = {
     async findQuotation(params){
         try {
+            /**
+             * Cotação pesquisa na base allQuotation, caso esteja fora dos parametros de consultas
+             * determinados, sistema irá consultar a api AwesomeApi e seguirá fluxo para salvar,
+             * caso esteja dentro dos parametos, sistema irá usar os valores salvos anteriormente e 
+             * seguirá fluxo para salvar a consulta
+             * 
+            */
             if(!params.coinFrom) 
                 throw "Moeda principal é um campo obrigatório";
             if(!params.coinTo) 
@@ -22,6 +29,7 @@ module.exports = {
             checkCoin(params.coinFrom);
             let foundDB = await findQuotationDB(params);
             if(!foundDB){
+                //caso não seja encontrada uma cotação na última hora na base, a api, irá buscar a cotação
                 let url = `${awesomeApi.url}/${params.coinFrom}-${params.coinTo}/${awesomeApi.retorno}`;
                 foundDB = await apiService(url);
             }
@@ -36,6 +44,9 @@ module.exports = {
 
     async quotation(params){
         try{
+            /**
+             * Consulta cotação: por id, pelo código da moeda ou pot página. Consulta é limitada a 10 registro por página
+             */
             if(isNaN(params.page)) throw "Página deve ser númerico"
             if(params.id && params.code) throw "Favor escolha sua busca por ID ou CODE"
             
@@ -60,6 +71,11 @@ module.exports = {
 
     async deleteQuotation(id){
         try {
+            /**
+             * Deleta a cotação por ID: Busca na base e caso encontre o ID. 
+             * O 'delete' é lógico, é setado como active false  
+            */
+
             if(isNaN(id)) throw "O id da cotação, deve ser númerico"
 
             let findQuery = { active: true, quotationId: id };
@@ -75,9 +91,16 @@ module.exports = {
 
 async function findQuotationDB(params){
     try {
+        /**
+         * Busca na base a cotação para todas as moeda
+         * Caso a hora atual depreciada 1 hora, seja menor que a data da última consulta, 
+         * o sistema irá pegar os valores que estão na base, de acordo com a última consulta salva.
+         * A consulta é feita atráves do worker, que a cada 1 hora, nos horários de 09 às 18, faz uma busca 
+         * e atualiza a base.
+        */
+
         let getDate = moment().add(-1, 'hour').format("YYYY-MM-DD HH:mm:ss");
         let foundDB = await findDbQuotation();
-        //Caso a hora atual, depreciada 1 hora, seja menor que a data da última consulta, seguir processo para pegar os dados da base
         if(getDate <= foundDB.creatAt){
             for (let key of Object.keys(foundDB.code)) {
                 if(key == params.coinFrom){
@@ -93,6 +116,10 @@ async function findQuotationDB(params){
 }
 
 function buildModel(params, quotation){
+    /**
+     * monta model para salvar na base
+    */
+
     quotation.valueQuotation = parseFloat(quotation.high * params.amount).toFixed(2);
     quotation.message = `{Valor a ser cotado $ ${params.amount}, resultado da conversão: ${params.coinFrom} para ${params.coinTo} = ${quotation.valueQuotation}`;
 
@@ -116,6 +143,8 @@ function buildModel(params, quotation){
 }
 
 function checkCoin(code){
+    //CheckCoin: verifica, se as moedas enviadas para cotação estão cadastradas
+    //Se a moeda não estiver no cadastro, irá retornar a msg: Verifique a moeda coinFrom e as moedas registradas
     try {
         let find = coinsFrom.find(el => el == code)
         if(!find) throw "Verifique a moeda coinFrom: " + coinsFrom
