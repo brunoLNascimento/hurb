@@ -39,5 +39,12 @@ module.exports = {
                 return response;
             }
         })    
-    }
+    },
+
+    async deleteQuotation(findQuery, updatequery){
+        return await Quotation.updateOne(findQuery, { $set: { active: false }}, function(err, res){
+            if(err) return "Erro em deleteQuotation: " + err;
+            else return res;
+        });
+    },
 }

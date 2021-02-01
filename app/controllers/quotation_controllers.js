@@ -1,4 +1,4 @@
-const { findQuotation, quotation } = require('../service/quotation_service');
+const { findQuotation, quotation, deleteQuotation } = require('../service/quotation_service');
 
 
 module.exports = {
@@ -24,6 +24,16 @@ module.exports = {
                 
             let found = await quotation(params);
             return res.status(200).send(found);
+        } catch (error) {
+            return res.status(400).send(error.message || error);
+        }
+    },
+
+    async remove(req, res){
+        try {
+            let id = req.params.id
+            await deleteQuotation(id);
+            return res.status(200).send(`Cotação para o ${id} deletada com sucesso`);
         } catch (error) {
             return res.status(400).send(error.message || error);
         }

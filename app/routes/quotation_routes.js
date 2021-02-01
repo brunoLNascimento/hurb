@@ -9,6 +9,6 @@ module.exports = function(server) {
     server.get('/findQuotation/:id?', quotation.getQuotation)
 
     //remove, rota para exclusão lógica
-    //server.delete('/removeQuotation/:id', quotation.remove)
+    server.delete('/removeQuotation/:id', quotation.remove)
     
 }

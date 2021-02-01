@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 const Quotation = mongoose.model('Quotation');
 const { awesomeApi, limit } = require("../config/config");
 const { apiService } = require("../service/awesomeApi_service");
-const { saveQuotation, findDbQuotation, findQuotationBy } = require("../repository/quotation_repository");
+const { saveQuotation, findDbQuotation, findQuotationBy, deleteQuotation } = require("../repository/quotation_repository");
 const moment = require("moment");
-const { coinFrom } = require('../helper/helper');
 const coinsFrom = require('../helper/helper');
 
 module.exports = {
@@ -17,6 +16,9 @@ module.exports = {
             if(!params.amount) 
                 throw "Valor a ser convertido é um campo obrigatório";
             
+            params.coinFrom = params.coinFrom.toUpperCase();
+            params.coinTo = params.coinTo.toUpperCase();
+
             checkCoin(params.coinFrom);
             let foundDB = await findQuotationDB(params);
             if(!foundDB){
@@ -53,6 +55,20 @@ module.exports = {
             return foundDB;
         } catch (error) {
             throw error;
+        }
+    },
+
+    async deleteQuotation(id){
+        try {
+            if(isNaN(id)) throw "O id da cotação, deve ser númerico"
+
+            let findQuery = { active: true, quotationId: id };
+            let found = await findQuotationBy(findQuery);
+            if(!found.length) 
+                throw `Id ${id} não encontrado, favor verifique o id da cotação`;
+            return await deleteQuotation(findQuery);            
+        } catch (error) {
+            throw error
         }
     }
 }
