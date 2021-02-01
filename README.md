@@ -19,5 +19,5 @@ $ npm test -- Executar os testes do sistema.
 3. delete: localhost:3000/removeQuotation/id
 - Endpoint para remover deletar a cotação. Delete lógico, a cotação é setada como active = false.
 
-* OBS
+# OBS
 Foi criado um WORKER, que busca todas as cotações a cada hora no intervalo de 09:00 até 18:00. Essa busca é feita e armazenada na base. E toda vez que é solicitada uma cotação (passo 1), é feita uma validação para validar o horário. Caso a hora da última cotação salva pelo WORKER esteja no intervalo de 1 hora (hora da consulta da nova cotação) é utilizada os valores da cotação salva. Caso seja maior a hora, é feita a consulta na API awesomeapi. 
