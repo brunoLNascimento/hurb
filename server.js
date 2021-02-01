@@ -30,8 +30,10 @@ db.on('connecting', function() {
 
 db.on('error', function(error) {
     console.log('Error na conexão MongoDB: ' + error);
-    mongoose.disconnect();
+    mongoose.connect(config.db.url, function(err) { 
+        if(err) mongoose.disconnect })
 });
+
 db.on('connected', function() {
     console.log('MongoDB: conectado!');
 });
@@ -45,6 +47,6 @@ db.on('disconnected', function() {
     console.log('MongoDB desconectado!');
 });
 
-mongoose.connect(config.db.url,  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+mongoose.connect(config.db.urlDocker,  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 module.exports = server

@@ -27,8 +27,8 @@ module.exports = {
 
     async saveAllQuotation(allQuotation) {
         allQuotation.save(function(err, response){
-            if(err){
-                throw "Erro ao salvar cotação solicitada" + err;
+            if(err){ 
+                throw "Erro ao salvar cotação solicitada " + err;
             }else{
                 return response;
             }

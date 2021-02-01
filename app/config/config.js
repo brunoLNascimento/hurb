@@ -1,7 +1,8 @@
 const config = {
     db: {
-        url: 'mongodb://mongo:27017/desafioHurb',
-        urlTeste: 'mongodb://mongo:27017/desafioHurbTest',
+        url: 'mongodb://localhost:27017/desafioHurb',
+        urlDocker: 'mongodb://mongo:27017/desafioHurb',
+        urlTeste: 'mongodb://localhost:27017/desafioHurbTest',
         options: {
             server: {
                 socketOptions: {keepAlive: 1},
@@ -13,7 +14,7 @@ const config = {
     awesomeApi: {
         url: "https://economia.awesomeapi.com.br",
         urlAllQuoatation: "http://economia.awesomeapi.com.br/json/all",
-        timeout: 3000,
+        timeout: 4000,
         retorno: 1
     },
 
