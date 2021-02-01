@@ -30,7 +30,7 @@ mongoose.connect(config.db.urlTeste);
 describe( 'Testando api de cotação', () =>{
     setTimeout( function () {
         process.exit()
-      }, 3000);
+      }, 4000);
 
     it('#1 - Cotação com moeda não registrada', done => {
         request(app)
