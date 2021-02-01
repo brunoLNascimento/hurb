@@ -48,6 +48,7 @@ module.exports = {
              * Consulta cotação: por id, pelo código da moeda ou pot página. Consulta é limitada a 10 registro por página
              */
             if(isNaN(params.page)) throw "Página deve ser númerico"
+            if(params.id && isNaN(params.id)) throw "Id deve ser númerico"
             if(params.id && params.code) throw "Favor escolha sua busca por ID ou CODE"
             
             let query = { };
