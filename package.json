@@ -4,7 +4,8 @@
   "description": "desafio hurb",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 30000 test/**/*.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,13 @@
     "express": "^4.17.1",
     "express-load": "^1.1.16",
     "express-mongo-db": "^2.0.4",
+    "mocha": "^8.2.1",
     "moment": "^2.29.1",
     "mongo": "^0.1.0",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.13",
     "mongoose-sequence": "^5.3.1",
-    "node-cron": "^2.0.3"
+    "node-cron": "^2.0.3",
+    "supertest": "^6.1.3"
   }
 }

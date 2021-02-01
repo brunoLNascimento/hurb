@@ -35,8 +35,8 @@ module.exports = {
             }
 
             let built = buildModel(params, foundDB);
-            saveQuotation(built);
-            return foundDB;
+            let response = await saveQuotation(built);
+            return response;
         } catch (error) {
             throw error;
         }
@@ -63,7 +63,8 @@ module.exports = {
             } 
 
             let foundDB = await findQuotationBy(query, skip);
-            return foundDB;
+            if(foundDB.length) return foundDB;
+            else throw "Nenhum resultado encontrado para a busca"
         } catch (error) {
             throw error;
         }
@@ -111,7 +112,7 @@ async function findQuotationDB(params){
             return;
         }
     } catch (error) {
-        console.log("Erro ao consultar na base a cotação!")
+        console.log("Não foi possível consultar a base de cotação!")
     }
 }
 
