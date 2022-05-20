@@ -4,9 +4,16 @@ const express = require('express')
 const server = express()
 const consign = require('consign')
 const config = require('./app/config/config')
+let urlMongo = config.db.url;
 
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
+
+if( server.settings.env == "development" ) {
+    urlMongo = config.db.url;
+}else{
+    urlMongo = config.db.urlDocker;
+}
 
 server.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -47,6 +54,6 @@ db.on('disconnected', function() {
     console.log('MongoDB desconectado!');
 });
 
-mongoose.connect(config.db.urlDocker,  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+mongoose.connect(urlMongo,  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 module.exports = server

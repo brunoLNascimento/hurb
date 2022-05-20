@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Quotation = mongoose.model('Quotation');
 const AllQuotation = mongoose.model('AllQuotation');
 const { limit } = require('../config/config');
-mongoose.set('debug', true)
+// mongoose.set('debug', true)
 
 
 module.exports = {

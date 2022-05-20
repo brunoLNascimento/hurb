@@ -15,13 +15,11 @@ module.exports = {
     async getQuotation(req, res){
         try {
             let params = {
-                id: req.params.id,
+                id: req.query.id,
+                code: req.query.code ? req.query.code.toUpperCase() : null,
                 page: parseInt( req.query.page ? req.query.page : 0 ),
             };
 
-            if(req.query.code)
-                params.code = req.query.code.toUpperCase();
-                
             let found = await quotation(params);
             return res.status(200).send(found);
         } catch (error) {
@@ -33,7 +31,7 @@ module.exports = {
         try {
             let id = req.params.id
             await deleteQuotation(id);
-            return res.status(200).send(`Cotação para o ${id} deletada com sucesso`);
+            return res.status(200).send(`Cotação para o id: ${id} deletada com sucesso`);
         } catch (error) {
             return res.status(400).send(error.message || error);
         }
