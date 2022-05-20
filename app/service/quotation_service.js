@@ -18,13 +18,11 @@ module.exports = {
             */
             if(!params.coinFrom) 
                 throw "Moeda principal é um campo obrigatório";
-            if(!params.coinTo) 
-                throw "Moeda a ser convertida é um campo obrigatório";
             if(!params.amount) 
                 throw "Valor a ser convertido é um campo obrigatório";
             
             params.coinFrom = params.coinFrom.toUpperCase();
-            params.coinTo = params.coinTo.toUpperCase();
+            params.coinTo = "BRL";
 
             checkCoin(params.coinFrom);
             let foundDB = await findQuotationDB(params);
@@ -123,7 +121,7 @@ function buildModel(params, quotation){
     */
 
     quotation.valueQuotation = parseFloat(quotation.high * params.amount).toFixed(2);
-    quotation.message = `{Valor a ser cotado $ ${params.amount}, resultado da conversão: ${params.coinFrom} para ${params.coinTo} = ${quotation.valueQuotation}`;
+    quotation.message = `Valor a ser cotado $ ${params.amount}, resultado da conversão: ${params.coinFrom} para ${params.coinTo} = ${quotation.valueQuotation}`;
 
     let saveQuotation = new Quotation({
         varBid: quotation.varBid,

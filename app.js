@@ -1,7 +1,7 @@
-let express = require('express');
-let bodyParser = require('body-parser');
-let consign = require('consign');
-let app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const consign = require('consign');
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));

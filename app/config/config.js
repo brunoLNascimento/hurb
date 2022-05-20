@@ -1,12 +1,12 @@
 const config = {
     db: {
-        url: 'mongodb://localhost:27017/desafioHurb',
+        url: 'mongodb+srv://bruno:bruno@cluster0.h6epz.mongodb.net/?retryWrites=true&w=majority',
         urlDocker: 'mongodb://mongo:27017/desafioHurb',
         urlTeste: 'mongodb://localhost:27017/desafioHurbTest',
         options: {
             server: {
-                socketOptions: {keepAlive: 1},
-                auto_reconnect: true
+                socketOptions: {keepAlive: 1}
+                //auto_reconnect: true
             }
         }
     },
@@ -21,4 +21,4 @@ const config = {
     limit: 10
 };
 
-module.exports = config
+module.exports = config;

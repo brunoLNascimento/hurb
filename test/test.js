@@ -34,7 +34,7 @@ describe( 'Testando api de cotação', () =>{
 
     it('#1 - Cotação com moeda não registrada', done => {
         request(app)
-        .get(`/quotation/${moedaNaoResgistrada}/${quotationETH.coinTo}/${quotationETH.amount}`)
+        .get(`/quotation/${moedaNaoResgistrada}/${quotationETH.amount}`)
         .timeout(3000)
         .expect(400)
         .end(done)
@@ -42,7 +42,7 @@ describe( 'Testando api de cotação', () =>{
 
     it('#2 - Cotação USD', done => {
         request(app)
-        .get(`/quotation/${quotationUSD.coinFrom}/${quotationUSD.coinTo}/${quotationUSD.amount}`)
+        .get(`/quotation/${quotationUSD.coinFrom}/${quotationUSD.amount}`)
         .timeout(3000)
         .expect(function (res) {
             if(res.statusCode == 200){
@@ -56,7 +56,7 @@ describe( 'Testando api de cotação', () =>{
     
     it('#3 - Cotação EUR', done => {
         request(app)
-        .get(`/quotation/${quotationEUR.coinFrom}/${quotationEUR.coinTo}/${quotationEUR.amount}`)
+        .get(`/quotation/${quotationEUR.coinFrom}/${quotationEUR.amount}`)
         .timeout(3000)
         .expect(function (res) {
             if(res.statusCode == 200){
@@ -70,7 +70,7 @@ describe( 'Testando api de cotação', () =>{
     
     it('#4 - Cotação ETH', done => {
         request(app)
-        .get(`/quotation/${quotationETH.coinFrom}/${quotationETH.coinTo}/${quotationETH.amount}`)
+        .get(`/quotation/${quotationETH.coinFrom}/${quotationETH.amount}`)
         .timeout(3000)
         .expect(function (res) {
             if(res.statusCode == 200){
@@ -84,7 +84,7 @@ describe( 'Testando api de cotação', () =>{
 
     it('#5 - Busca todos as cotações', done => {
         request(app)
-        .get(`/findQuotation/`)
+        .get(`/findQuotation`)
         .timeout(3000)
         .expect(200)
         .end(done)
@@ -92,15 +92,15 @@ describe( 'Testando api de cotação', () =>{
     
     it('#6 - Busca cotação com ID não numérico', done => {
         request(app)
-        .get(`/findQuotation/${code}`)
+        .get(`/findQuotation?id=${code}`)
         .timeout(3000)
         .expect(400)
         .end(done)
     })
     
-    it('#7 - Busca cotação com ID e code da moeda', done => {
+    it('#7 - Busca cotação com code da moeda', done => {
         request(app)
-        .get(`/findQuotation/${usdId}?code=${code}`)
+        .get(`/findQuotation?code=${code}`)
         .timeout(3000)
         .expect(400)
         .end(done)
@@ -108,7 +108,7 @@ describe( 'Testando api de cotação', () =>{
 
     it('#8 - Busca todos as cotações página 1, sem resultado', done => {
         request(app)
-        .get(`/findQuotation/?page=1`)
+        .get(`/findQuotation?page=1`)
         .timeout(3000)
         .expect(400)
         .end(done)
@@ -116,7 +116,7 @@ describe( 'Testando api de cotação', () =>{
 
     it('#9 - Busca todos as cotações por code', done => {
         request(app)
-        .get(`/findQuotation/?code=${code}`)
+        .get(`/findQuotation?code=${code}`)
         .timeout(3000)
         .expect(200)
         .end(done)
@@ -124,7 +124,7 @@ describe( 'Testando api de cotação', () =>{
 
     it('#10 - Busca cotação por ID', done => {
         request(app)
-        .get(`/findQuotation/${usdId}`)
+        .get(`/findQuotation?id=${usdId}`)
         .timeout(3000)
         .expect(200)
         .end(done)
@@ -132,7 +132,7 @@ describe( 'Testando api de cotação', () =>{
 
     it('#11 - deleteQuotationUSD' + usdId, done => {
         request(app)
-        .delete(`/removeQuotation/${usdId}`)
+        .delete(`/removeQuotation?id=${usdId}`)
         .timeout(3000)
         .expect(200)
         .end(done)

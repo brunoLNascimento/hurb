@@ -12,8 +12,8 @@ $ npm install -- Instalar as dependências.
 $ npm start -- Rodar o sistema.
 $ npm test -- Executar os testes do sistema.
 ```
-1. get: localhost:3000/quotation/from/to/amount 
-- EX: localhost:3000/quotation/USD/BRL/100
+1. get: localhost:3000/quotation/from/amount 
+- EX: localhost:3000/quotation/USD/100
 - Endpoint para buscar cotação da moedas: Ao consultar a api passando esses valores, o endpoint busca na api http://economia.awesomeapi.com.br/ o valor da cotação, e retorna para o cliente, antes de ser enviado é salvo uma cópia no banco de dados de forma sequêncial, para consultas futuras;
 
 2. get: localhost:3000/findQuotation/id?
