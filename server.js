@@ -52,6 +52,7 @@ db.on('reconnected', function () {
 });
 db.on('disconnected', function() {
     console.log('MongoDB desconectado!');
+    process.exit()
 });
 
 mongoose.connect(urlMongo,  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
