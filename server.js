@@ -42,7 +42,7 @@ db.on('error', function(error) {
 });
 
 db.on('connected', function() {
-    console.log('MongoDB: conectado!');
+    console.log('MongoDB: conectado!');  
 });
 db.once('open', function() {
     console.log('MongoDB: conexão aberta!');
